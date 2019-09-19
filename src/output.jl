@@ -235,14 +235,25 @@ function showjuno(io::IO, m, plt)
     sz = collect(plt[:size])
     dpi = plt[:dpi]
     thickness_scaling = plt[:thickness_scaling]
+    println(" -------------------- ")
+    println("sz ", sz)
+    println("dpi ", dpi)
+    println("thickness_scaling ", thickness_scaling)
 
     jsize = get(io, :juno_plotsize, [400, 500])
     jratio = get(io, :juno_dpi_ratio, 1)
+    println("jsize ", jsize)
+    println("jratio ", jratio)
+    println("Plots.DPI ", Plots.DPI)
 
     scale = minimum(jsize[i] / sz[i] for i in 1:2)
     plt[:size] = [s * scale for s in sz]
     plt[:dpi] = jratio*Plots.DPI
     plt[:thickness_scaling] *= scale
+    println("scale ", scale)
+    println("size ", plt[:size])
+    println("dpi ", plt[:dpi])
+    println("thickness_scaling ", plt[:thickness_scaling])
 
     prepare_output(plt)
     try
@@ -251,6 +262,9 @@ function showjuno(io::IO, m, plt)
       plt[:size] = sz
       plt[:dpi] = dpi
       plt[:thickness_scaling] = thickness_scaling
+      println("f size ", plt[:size])
+      println("f dpi ", plt[:dpi])
+      println("f thickness_scaling ", plt[:thickness_scaling])
     end
 end
 
